@@ -42,6 +42,15 @@ let createOffer = async() => {
     // 把這個空的 remoteStream 放到 id="user-2" 的 <video> 元素上（先準備好）
     document.getElementById("user-2").srcObject = remoteStream
 
+
+    // 從 localStream（MediaStream）中取得所有的軌道（track）
+    localStream.getTracks().forEach((track) => {
+
+        // 將每個 track 加入到 RTCPeerConnection 中
+        // 這樣 WebRTC 才知道要把這段影像或聲音傳送出去
+        peerConnection.addTrack(track, localStream)
+    })
+
     // 向瀏覽器要求創建一個 offer（SDP：描述本地端的能力與媒體格式）
     let offer = await peerConnection.createOffer()
 
