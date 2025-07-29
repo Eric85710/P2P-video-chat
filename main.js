@@ -33,14 +33,18 @@ let init = async() =>{
 
     // 建立一個 async 函式，負責創建 WebRTC offer，發起端會呼叫這個函式
 let createOffer = async() => {
+    
 
     peerConnection = new RTCPeerConnection(servers)
+
 
     // 建立一個空的 MediaStream，準備拿來裝「對方傳過來」的影像/音訊串流
     remoteStream = new MediaStream()
 
+
     // 把這個空的 remoteStream 放到 id="user-2" 的 <video> 元素上（先準備好）
     document.getElementById("user-2").srcObject = remoteStream
+
 
 
     // 從 localStream（MediaStream）中取得所有的軌道（track）
@@ -50,6 +54,14 @@ let createOffer = async() => {
         // 這樣 WebRTC 才知道要把這段影像或聲音傳送出去
         peerConnection.addTrack(track, localStream)
     })
+
+
+    //remote track display
+    peerConnection.ontrack = (event) => {
+        event.streams[0].getTracks().forEach((track) => {
+            remoteStream.addTrack()
+        })
+    }
 
     // 向瀏覽器要求創建一個 offer（SDP：描述本地端的能力與媒體格式）
     let offer = await peerConnection.createOffer()
