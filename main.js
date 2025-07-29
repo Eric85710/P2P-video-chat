@@ -2,7 +2,7 @@ let localStream;
 let remoteStream;
 let peerConnection;
 
-
+    // get the cam and show it on screen
 let init = async() =>{
 
 
@@ -28,7 +28,9 @@ let createOffer = async() => {
 
     document.getElementById("user-2").srcObject = remoteStream
 
-    let offer = await peerConnection
+    let offer = await peerConnection.createOffer()
+
+    await peerConnection.setLocalDescription(offer)
     
 }
 
