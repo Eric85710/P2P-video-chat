@@ -1,5 +1,7 @@
 let localStream;
 let remoteStream;
+let peerConnection;
+
 
 let init = async() =>{
 
@@ -12,6 +14,23 @@ let init = async() =>{
     // 這樣就可以在畫面上看到自己的影像
     document.getElementById("user-1").srcObject = localStream;
 }
+
+
+
+
+
+
+let createOffer = async() => {
+
+    peerConnection = new RTCPeerConnection()
+
+    remoteStream = new MediaStream(
+    document.getElementById("user-2").srcObject = remoteStream
+    )
+}
+
+
+
 
 
 // 呼叫 init 函數，啟動視訊串流
