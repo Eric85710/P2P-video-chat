@@ -19,17 +19,21 @@ let init = async() =>{
 
 
 
-
+    // 建立一個 async 函式，負責創建 WebRTC offer，發起端會呼叫這個函式
 let createOffer = async() => {
 
     peerConnection = new RTCPeerConnection()
 
+    // 建立一個空的 MediaStream，準備拿來裝「對方傳過來」的影像/音訊串流
     remoteStream = new MediaStream()
 
+    // 把這個空的 remoteStream 放到 id="user-2" 的 <video> 元素上（先準備好）
     document.getElementById("user-2").srcObject = remoteStream
 
+    // 向瀏覽器要求創建一個 offer（SDP：描述本地端的能力與媒體格式）
     let offer = await peerConnection.createOffer()
 
+    // 這是建立 WebRTC 連線的第一步（之後會把這個 offer 傳給遠端對等）
     await peerConnection.setLocalDescription(offer)
     
 }
