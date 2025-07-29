@@ -24,9 +24,12 @@ let createOffer = async() => {
 
     peerConnection = new RTCPeerConnection()
 
-    remoteStream = new MediaStream(
+    remoteStream = new MediaStream()
+
     document.getElementById("user-2").srcObject = remoteStream
-    )
+
+    let offer = await peerConnection
+    
 }
 
 
