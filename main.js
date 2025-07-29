@@ -63,6 +63,12 @@ let createOffer = async() => {
         })
     }
 
+    peerConnection.onicecandidate = async(event) => {
+        if (event.candidate){
+            console.log("new candidate:", event.candidate)
+        }
+    }
+
     // 向瀏覽器要求創建一個 offer（SDP：描述本地端的能力與媒體格式）
     let offer = await peerConnection.createOffer()
 
